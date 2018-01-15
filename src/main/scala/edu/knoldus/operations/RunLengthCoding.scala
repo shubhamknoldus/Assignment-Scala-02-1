@@ -8,7 +8,11 @@ class RunLengthCoding {
 
     def runLengthHelper(currentString:String, count: Int,inputStringList: List[String],outputTuple: List[(String, Int)]):List[(String, Int)] = {
       inputStringList match{
-        case head :: Nil => runLengthHelper(head, count, Nil, (currentString, count) :: outputTuple)
+        case head :: Nil => if(currentString == head){
+          runLengthHelper(head, count + 1, Nil, outputTuple)
+        }else{
+          runLengthHelper(head, 1, Nil, (currentString, count) :: outputTuple)
+        }
         case head :: tail =>
           if(head == currentString){
             runLengthHelper(head, count + 1, tail, outputTuple)
