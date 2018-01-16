@@ -9,15 +9,17 @@ class RunLengthCoding {
     def runLengthHelper(currentString:String, count: Int,inputStringList: List[String],outputTuple: List[(String, Int)]):List[(String, Int)] = {
       inputStringList match{
         case head :: Nil => if(currentString == head){
-          runLengthHelper(head, count + 1, Nil, outputTuple)
+//          runLengthHelper(head, count + 1, Nil, outputTuple)
+            outputTuple ::: List((currentString, count + 1))
         }else{
-          runLengthHelper(head, 1, Nil, (currentString, count) :: outputTuple)
+//          runLengthHelper(head, 1, Nil, (currentString, count) :: outputTuple)
+          outputTuple ::: List((currentString, count), (head, 1))
         }
         case head :: tail =>
           if(head == currentString){
             runLengthHelper(head, count + 1, tail, outputTuple)
           } else{
-            runLengthHelper(head, 1, tail, (currentString, count) :: outputTuple)
+            runLengthHelper(head, 1, tail, outputTuple ::: List((currentString, count)))
           }
 
         case Nil => outputTuple
